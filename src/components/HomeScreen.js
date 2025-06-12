@@ -7,6 +7,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
@@ -31,9 +33,47 @@ const HomeScreen = () => {
 
         {isOpen && (
           <View style={styles.menu}>
-            <Text style={styles.menuItem}>Home</Text>
-            <Text style={styles.menuItem}>Profile</Text>
-            <Text style={styles.menuItem}>Settings</Text>
+               <Text style={styles.menuItem}>
+              <FontAwesomeIcon
+                name="user"
+                size={20}
+                color="#000"
+              />
+              My Profile
+            </Text>
+           
+            <Text style={styles.menuItem}>
+               <FontAwesomeIcon
+                name="home"
+                size={20}
+                color="#000"
+              />
+              Saved Rooms</Text>
+
+            <Text style={styles.menuItem}>
+               <FontAwesomeIcon
+                name="language"
+                size={20}
+                color="#000"
+              />
+              Language</Text>
+
+            <Text style={styles.menuItem}>
+               <MaterialIcons
+                name="dark-mode"
+                size={20}
+                color="#000"
+              />
+              Mode</Text>
+
+            <Text style={styles.menuItem}>
+               <Ionicons
+                name="settings"
+                size={20}
+                color="#000"
+                style={styles.menuIcon}
+              />
+              Settings</Text>
           </View>
         )}
       </View>
@@ -76,8 +116,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   container: {
-    paddingTop: 40,
-    paddingLeft: 20,
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   menuButton: {
     padding: 10,
@@ -85,17 +126,22 @@ const styles = StyleSheet.create({
   menu: {
     marginTop: 10,
     backgroundColor: "#eee",
-    padding: 10,
+    padding: 20,
     borderRadius: 8,
     width: "100%",
-    elevation: 3, 
+    height: "90%",
+    elevation: 3,
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 5,
   },
   menuItem: {
     paddingVertical: 10,
-    fontSize: 16,
+    fontSize: 18,
+  },
+  menuIcon: {
+    marginLeft: 20,
+    padding: 30
   },
 });
 

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import { products } from "../data/modelList";
 
 const DetailsScreen = ({ route, navigation }) => {
   const { product } = route.params;
@@ -17,14 +16,14 @@ const DetailsScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.navigate("Content")}
-        style={{ padding: 20 }}
       >
-        <FontAwesomeIcon name="arrow-left" size={30} color="#000" />
+        <FontAwesomeIcon name="arrow-left" size={24} color="#000" />
       </TouchableOpacity>
+      <Text style={styles.name}>{product.name}</Text>
       <Image source={product.image} style={styles.image} />
       <Text style={styles.price}>{product.price}</Text>
       <Button
-        title="View in AR"
+        title="View in My Space"
         onPress={() =>
           navigation.navigate("ARScene", { product: product })
         }
@@ -46,13 +45,20 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    marginVertical: 10,
+    marginVertical: 20,
     textAlign: "center",
   },
   price: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+    color: "red",
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 20,
+    marginTop: 20,
   },
 });
 

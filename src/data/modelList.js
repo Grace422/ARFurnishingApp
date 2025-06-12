@@ -6,6 +6,7 @@ export const products = [
     price: '$10',
     model: require("../models/chair.glb"),
     modelType: "GLB",
+    name: 'Chair',
   },
   {
     id: '2',
@@ -14,6 +15,7 @@ export const products = [
     price: '$15',
     model: require("../models/table.glb"),
     modelType: "GLB",
+    name: 'Chair',
   },
   {
     id: '3',
@@ -22,6 +24,7 @@ export const products = [
     price: '$15',
     model: require("../models/mahogany_table.glb"),
     modelType: "GLB",
+    name: 'Chair',
   },
   {
     id: '4',
@@ -30,5 +33,6 @@ export const products = [
     price: '$15',
     model: require("../models/chair.glb"),
     modelType: "GLB",
+    name: 'Chair',
   },
 ];
