@@ -12,7 +12,7 @@ export const products = [
     image: require('../assets/chair.png'),
     description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     price: '$15',
-    model: require("../models/chair.glb"),
+    model: require("../models/table.glb"),
     modelType: "GLB",
   },
   {
@@ -20,7 +20,7 @@ export const products = [
     image: require('../assets/chair.png'),
     description: 'Alorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     price: '$15',
-    model: require("../models/chair.glb"),
+    model: require("../models/mahogany_table.glb"),
     modelType: "GLB",
   },
   {
