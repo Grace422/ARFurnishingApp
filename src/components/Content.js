@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   FlatList,
+  ScrollView
 } from "react-native";
 import React from "react";
 import { products } from "../data/modelList";
@@ -25,7 +26,7 @@ const Content = () => {
     </TouchableOpacity>
   );
   return (
-    <>
+    <ScrollView>
       <TouchableOpacity
         onPress={() => navigation.navigate("HomeScreen")}
         style={{ padding: 20 }}
@@ -39,7 +40,7 @@ const Content = () => {
         renderItem={renderItem}
         contentContainerStyle={styles.container}
       />
-    </>
+    </ScrollView>
   );
 };
 
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 150,
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
   name: {
     fontSize: 16,
