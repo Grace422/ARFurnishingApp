@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import { products } from "../data/modelList";
 
 const DetailsScreen = ({ route, navigation }) => {
   const { product } = route.params;
@@ -25,7 +26,7 @@ const DetailsScreen = ({ route, navigation }) => {
       <Button
         title="View in AR"
         onPress={() =>
-          navigation.navigate("ARScene", { product: product.model })
+          navigation.navigate("ARScene", { product: product })
         }
       />
       <Text style={styles.description}>{product.description}</Text>

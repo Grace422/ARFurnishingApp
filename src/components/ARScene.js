@@ -1,11 +1,14 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import {
   ViroARScene,
   ViroARSceneNavigator,
   Viro3DObject,
   ViroAmbientLight,
-} from '@reactvision/react-viro';
+} from "@reactvision/react-viro";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from '@react-navigation/native';
+
 
 const ProductARScene = ({ sceneNavigator }) => {
   const { product } = sceneNavigator.viroAppProps;
@@ -15,30 +18,38 @@ const ProductARScene = ({ sceneNavigator }) => {
       <ViroAmbientLight color="#FFFFFF" />
 
       <Viro3DObject
-        source={{ uri: product.model }} 
-        position={[0, 0, -1]}
+        source={product.model}
+        position={[0, 0, 0]}
         scale={[0.1, 0.1, 0.1]}
-        type="GLB" // or 'OBJ', 'VRX', etc., depending on your model
+        type={product.modelType}
         dragType="FixedToWorld"
-				onDrag={() => {}}
+        onDrag={() => {}}
       />
     </ViroARScene>
   );
 };
 
-
 export default function ARViewer({ route }) {
+    const navigation = useNavigation();
   const { product } = route.params;
 
   return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: ProductARScene, 
-      }}
-      viroAppProps={{ product }} 
-      style={styles.container}
-    />
+    <>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("DetailScreen")}
+        style={{ padding: 20 }}
+      >
+        <FontAwesomeIcon name="arrow-left" size={30} color="#000" />
+      </TouchableOpacity>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: ProductARScene,
+        }}
+        viroAppProps={{ product }}
+        style={styles.container}
+      />
+    </>
   );
 }
 
