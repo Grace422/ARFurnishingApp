@@ -21,7 +21,6 @@ const DetailsScreen = ({ route, navigation }) => {
       </TouchableOpacity>
       <Text style={styles.name}>{product.name}</Text>
       <Image source={product.image} style={styles.image} />
-      <Text style={styles.price}>{product.price}</Text>
       <Button
         title="View in My Space"
         onPress={() =>
