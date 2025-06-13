@@ -7,10 +7,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import Entypo from 'react-native-vector-icons/Entypo'
+import Feather from 'react-native-vector-icons/Feather';
 
 const WelcomeScreen = () => {
-   const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <ImageBackground
       source={require("../assets/bg.jpg")}
@@ -20,10 +23,22 @@ const WelcomeScreen = () => {
       <SafeAreaView>
         <View style={styles.content}>
           <Text style={styles.title}>Welcome to HomeFurniture</Text>
-          <Text style={styles.experience}>Experience furniture in your place before you buy. Let's get started!</Text>
-          <Text style={styles.instruction1}>Point your camera at an open floor space</Text>
-          <Text style={styles.instruction2}>Tap the + button to add furniture</Text>
-          <Text style={styles.instruction3}>Move, rotate and resize with gestures</Text>
+          <Text style={styles.experience}>
+            Experience furniture in your place before you buy. Let's get
+            started!
+          </Text>
+          <Text style={styles.instruction1}>
+            <Entypo name="camera" size={24} color="#FFF" />
+            Point your camera at an open floor space
+          </Text>
+          <Text style={styles.instruction2}>
+            <FontAwesomeIcon name="plus" size={24} color="#FFF" />
+            Tap the + button to add furniture
+          </Text>
+          <Text style={styles.instruction3}>
+            <Feather name="move" size={24} color="#FFF" />
+            Move, rotate and resize with gestures
+          </Text>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("HomeScreen")}
