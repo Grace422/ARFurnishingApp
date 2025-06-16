@@ -20,9 +20,10 @@ const WelcomeScreen = () => {
       style={styles.background}
       resizeMode="cover"
     >
+      <View style={styles.overlay} />
       <SafeAreaView>
         <View style={styles.content}>
-          <Text style={styles.title}>Welcome to HomeFurniture</Text>
+          <Text style={styles.title}>Welcome to <Text style={{color: "red"}}>HomeFurniture</Text></Text>
           <Text style={styles.experience}>
             Experience furniture in your place before you buy. Let's get
             started!
@@ -56,10 +57,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   overlay: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.2)",
-    justifyContent: "center",
-    alignItems: "center",
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
   },
   content: {
     alignItems: "center",

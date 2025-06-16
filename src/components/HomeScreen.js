@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
@@ -35,29 +36,13 @@ const HomeScreen = () => {
           <View style={styles.menu}>
                <Text style={styles.menuItem}>
               <FontAwesomeIcon
-                name="user"
-                size={20}
-                color="#000"
-              />
-              My Profile
-            </Text>
-           
-            <Text style={styles.menuItem}>
-               <FontAwesomeIcon
-                name="home"
-                size={20}
-                color="#000"
-              />
-              Saved Rooms</Text>
-
-            <Text style={styles.menuItem}>
-               <FontAwesomeIcon
                 name="language"
                 size={20}
                 color="#000"
               />
-              Language</Text>
-
+              Language
+            </Text>
+           
             <Text style={styles.menuItem}>
                <MaterialIcons
                 name="dark-mode"
@@ -65,6 +50,22 @@ const HomeScreen = () => {
                 color="#000"
               />
               Mode</Text>
+
+            <Text style={styles.menuItem}>
+               <MaterialCommunityIcons
+                name="book"
+                size={20}
+                color="#000"
+              />
+              Tutorial</Text>
+
+            <Text style={styles.menuItem}>
+               <MaterialIcons
+                name="share"
+                size={20}
+                color="#000"
+              />
+              Share</Text>
 
             <Text style={styles.menuItem}>
                <Ionicons

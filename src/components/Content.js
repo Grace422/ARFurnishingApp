@@ -26,7 +26,7 @@ const Content = () => {
     </TouchableOpacity>
   );
   return (
-    <ScrollView>
+    <>
       <TouchableOpacity
         onPress={() => navigation.navigate("HomeScreen")}
         style={{ padding: 20 }}
@@ -40,7 +40,7 @@ const Content = () => {
         renderItem={renderItem}
         contentContainerStyle={styles.container}
       />
-    </ScrollView>
+    </>
   );
 };
 

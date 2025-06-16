@@ -19,8 +19,9 @@ const DetailsScreen = ({ route, navigation }) => {
       >
         <FontAwesomeIcon name="arrow-left" size={24} color="#000" />
       </TouchableOpacity>
-      <Text style={styles.name}>{product.name}</Text>
       <Image source={product.image} style={styles.image} />
+      <Text style={styles.name}>{product.name}</Text>
+
       <Button
         title="View in My Space"
         onPress={() =>
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     height: 250,
     resizeMode: "contain",
     marginBottom: 20,
+    marginTop: 40,
   },
   description: {
     fontSize: 18,

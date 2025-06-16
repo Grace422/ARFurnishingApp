@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import {
    ViroARScene,
@@ -34,13 +34,14 @@ const ProductARScene = ({ sceneNavigator }) => {
       <ViroAmbientLight color="#FFFFFF" />
 
       <ViroARPlane
-        minHeight={0.05}
-        minWidth={0.05}
-        alignment={"Horizontal"}
-        onPlaneSelected={onSetPosition} // Use onPlaneSelected for robust placement
+        // minHeight={0.05}
+        // minWidth={0.05}
+        // alignment={"Horizontal"}
+        // onPlaneSelected={onSetPosition} 
+        dragType="FixedToWorld"
       >
         <Viro3DObject
-          visible={!!position} // Only visible after the first click
+          visible={!!position} 
           source={product.model}
           position={position ?? [0, 0, 0]}
           scale={scale}
@@ -49,6 +50,8 @@ const ProductARScene = ({ sceneNavigator }) => {
           onRotate={onRotate}
           onPinch={onPinch}
           onDrag={onDrag}
+          onPlaneSelected={onSetPosition} 
+          dragType="FixedToWorld"
         />
       </ViroARPlane>
     </ViroARScene>
@@ -62,37 +65,42 @@ export default function ARViewer({ route }) {
   const [scale, setScale] = useState([0.1, 0.1, 0.1]);
   const [rotation, setRotation] = useState([0, 0, 0]);
 
-  // --- CHANGE #3: Refactored gesture handlers for real-time feedback ---
 
-  const handleRotate = (rotateState, rotationFactor) => {
-    // We only care about the continuous rotation (state=2)
+  const handleRotate = useCallback((rotateState, rotationFactor) => {
     if (rotateState === 2) {
-      // The new rotation is the current rotation plus the factor
-      const newRotation = [rotation[0], rotation[1] + rotationFactor, rotation[2]];
-      setRotation(newRotation);
+      // Use the functional update form to avoid dependency on 'rotation'
+      setRotation(currentRotation => [
+        currentRotation[0],
+        currentRotation[1] + rotationFactor,
+        currentRotation[2],
+      ]);
     }
-  };
+  }, []); // Empty dependency array means this function is created only once
 
-  const handlePinch = (pinchState, scaleFactor) => {
-    // We only care about the continuous pinch (state=2)
+  const handlePinch = useCallback((pinchState, scaleFactor) => {
     if (pinchState === 2) {
-      const currentScale = scale[0];
-      const newScale = currentScale * scaleFactor;
-      setScale([newScale, newScale, newScale]);
+      // Use the functional update form to avoid dependency on 'scale'
+      setScale(currentScale => {
+        const newScale = currentScale[0] * scaleFactor;
+        return [newScale, newScale, newScale];
+      });
     }
-  };
+  }, []); // Empty dependency array
 
-  // Dragging is simpler, it directly gives the new position.
-  const handleDrag = (dragToPos) => {
+  // The 'onDrag' handler is simple and can be defined as is, but for consistency...
+  const handleDrag = useCallback((dragToPos) => {
     setPosition(dragToPos);
-  };
-  
-  // onPlaneSelected gives us an object with the position, we extract it.
-  const handleSetPosition = (planeData) => {
-      if (!position) { // Only place the object once initially
-          setPosition(planeData.position);
-      }
-  };
+  }, []); // Empty dependency array
+
+  const handleSetPosition = useCallback((planeData) => {
+      // Use functional update form to avoid dependency on 'position'
+      setPosition(currentPos => {
+          if (!currentPos) {
+              return planeData.position;
+          }
+          return currentPos;
+      });
+  }, []); 
   return (
     <>
       <TouchableOpacity
@@ -106,7 +114,6 @@ export default function ARViewer({ route }) {
         initialScene={{
           scene: ProductARScene,
         }}
-        // Pass all state and handlers down
         viroAppProps={{
           product,
           position,
@@ -118,7 +125,7 @@ export default function ARViewer({ route }) {
           onDrag: handleDrag,
         }}
         style={styles.container}
-      />I
+      />
     </>
   );
 }
