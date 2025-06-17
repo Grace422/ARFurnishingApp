@@ -26,7 +26,7 @@ const ProductARScene = ({ sceneNavigator }) => {
     onSetPosition,
     onRotate,
     onPinch,
-    // onDrag,
+    onDrag,
   } = sceneNavigator.viroAppProps;
 
   return (
@@ -38,7 +38,7 @@ const ProductARScene = ({ sceneNavigator }) => {
         minWidth={0.05}
         alignment={"Horizontal"}
         onPlaneSelected={onSetPosition} 
-        dragType="FixedToWorld"
+        // dragType="FixedToWorld"
       >
         <Viro3DObject
           visible={!!position} 
@@ -47,8 +47,8 @@ const ProductARScene = ({ sceneNavigator }) => {
           scale={scale}
           rotation={rotation}
           type={product.modelType}
-          onRotate={onRotate}
-          onPinch={onPinch}
+          onRotate={onRotate ? onRotate : () => {}}
+          onPinch={onPinch ? onPinch : () => {}}
           // onDrag={onDrag}
           onPlaneSelected={onSetPosition} 
           dragType="FixedToWorld"
