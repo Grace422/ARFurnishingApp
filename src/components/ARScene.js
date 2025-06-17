@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import {
-   ViroARScene,
+  ViroARScene,
   ViroARSceneNavigator,
   Viro3DObject,
   ViroAmbientLight,
@@ -26,7 +26,7 @@ const ProductARScene = ({ sceneNavigator }) => {
     onSetPosition,
     onRotate,
     onPinch,
-    onDrag,
+    // onDrag,
   } = sceneNavigator.viroAppProps;
 
   return (
@@ -34,10 +34,10 @@ const ProductARScene = ({ sceneNavigator }) => {
       <ViroAmbientLight color="#FFFFFF" />
 
       <ViroARPlane
-        // minHeight={0.05}
-        // minWidth={0.05}
-        // alignment={"Horizontal"}
-        // onPlaneSelected={onSetPosition} 
+        minHeight={0.05}
+        minWidth={0.05}
+        alignment={"Horizontal"}
+        onPlaneSelected={onSetPosition} 
         dragType="FixedToWorld"
       >
         <Viro3DObject
@@ -49,9 +49,10 @@ const ProductARScene = ({ sceneNavigator }) => {
           type={product.modelType}
           onRotate={onRotate}
           onPinch={onPinch}
-          onDrag={onDrag}
+          // onDrag={onDrag}
           onPlaneSelected={onSetPosition} 
           dragType="FixedToWorld"
+					onDrag={() => {}}
         />
       </ViroARPlane>
     </ViroARScene>
@@ -66,41 +67,33 @@ export default function ARViewer({ route }) {
   const [rotation, setRotation] = useState([0, 0, 0]);
 
 
-  const handleRotate = useCallback((rotateState, rotationFactor) => {
+  const handleRotate = (rotateState, rotationFactor) => {
+     console.log("ROTATE EVENT: State=", rotateState, "Factor=", rotationFactor);
     if (rotateState === 2) {
-      // Use the functional update form to avoid dependency on 'rotation'
-      setRotation(currentRotation => [
-        currentRotation[0],
-        currentRotation[1] + rotationFactor,
-        currentRotation[2],
-      ]);
+      const newRotation = [rotation[0], rotation[1] + rotationFactor, rotation[2]];
+      setRotation(newRotation);
     }
-  }, []); // Empty dependency array means this function is created only once
+  };
 
-  const handlePinch = useCallback((pinchState, scaleFactor) => {
+  const handlePinch = (pinchState, scaleFactor) => {
+     console.log("PINCH EVENT: State=", pinchState, "Factor=", scaleFactor);
     if (pinchState === 2) {
-      // Use the functional update form to avoid dependency on 'scale'
-      setScale(currentScale => {
-        const newScale = currentScale[0] * scaleFactor;
-        return [newScale, newScale, newScale];
-      });
+      const currentScale = scale[0];
+      const newScale = currentScale * scaleFactor;
+      setScale([newScale, newScale, newScale]);
     }
-  }, []); // Empty dependency array
+  };
 
-  // The 'onDrag' handler is simple and can be defined as is, but for consistency...
-  const handleDrag = useCallback((dragToPos) => {
-    setPosition(dragToPos);
-  }, []); // Empty dependency array
-
-  const handleSetPosition = useCallback((planeData) => {
-      // Use functional update form to avoid dependency on 'position'
-      setPosition(currentPos => {
-          if (!currentPos) {
-              return planeData.position;
-          }
-          return currentPos;
-      });
-  }, []); 
+  // const handleDrag = (dragToPos) => {
+  //   console.log("DRAG EVENT: New Position=", dragToPos); 
+  //   setPosition(dragToPos);
+  // };
+  
+  const handleSetPosition = (planeData) => {
+      if (!position) { 
+          setPosition(planeData.position);
+      }
+  };
   return (
     <>
       <TouchableOpacity
@@ -122,7 +115,7 @@ export default function ARViewer({ route }) {
           onSetPosition: handleSetPosition,
           onRotate: handleRotate,
           onPinch: handlePinch,
-          onDrag: handleDrag,
+          // onDrag: handleDrag,
         }}
         style={styles.container}
       />
