@@ -78,16 +78,24 @@ export default function ARViewer({ route }) {
   const handlePinch = (pinchState, scaleFactor) => {
      console.log("PINCH EVENT: State=", pinchState, "Factor=", scaleFactor);
     if (pinchState === 2) {
+      const MIN_SCALE = 0.5; 
+      const MAX_SCALE = 2;
       const currentScale = scale[0];
-      const newScale = currentScale * scaleFactor;
+      let newScale = currentScale * scaleFactor;
+
+      if (newScale < MIN_SCALE) {
+        newScale = MIN_SCALE;
+      } else if (newScale > MAX_SCALE) {
+        newScale = MAX_SCALE;
+      }
       setScale([newScale, newScale, newScale]);
     }
   };
 
-  // const handleDrag = (dragToPos) => {
-  //   console.log("DRAG EVENT: New Position=", dragToPos); 
-  //   setPosition(dragToPos);
-  // };
+  const handleDrag = (dragToPos) => {
+    console.log("DRAG EVENT: New Position=", dragToPos); 
+    setPosition(dragToPos);
+  };
   
   const handleSetPosition = (planeData) => {
       if (!position) { 
@@ -115,7 +123,7 @@ export default function ARViewer({ route }) {
           onSetPosition: handleSetPosition,
           onRotate: handleRotate,
           onPinch: handlePinch,
-          // onDrag: handleDrag,
+          onDrag: handleDrag,
         }}
         style={styles.container}
       />
