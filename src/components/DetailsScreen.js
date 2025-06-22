@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Button,
   TouchableOpacity,
+  ScrollView
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 
@@ -13,10 +14,8 @@ const DetailsScreen = ({ route, navigation }) => {
   const { product } = route.params;
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Content")}
-      >
+    <ScrollView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate("Content")}>
         <FontAwesomeIcon name="arrow-left" size={24} color="#000" />
       </TouchableOpacity>
       <Image source={product.image} style={styles.image} />
@@ -24,12 +23,22 @@ const DetailsScreen = ({ route, navigation }) => {
 
       <Button
         title="View in My Space"
-        onPress={() =>
-          navigation.navigate("ARScene", { product: product })
-        }
+        onPress={() => navigation.navigate("ARScene", { product: product })}
       />
-      <Text style={styles.description}>{product.description}</Text>
-    </View>
+      <View style={{ marginTop: 20 }}>
+        <Text style={{fontWeight: "bold", fontSize: 18}}>Description:</Text>
+        <Text style={styles.description}>{product.description}</Text>
+
+        <Text style={{fontWeight: "bold", fontSize: 18, marginTop: 15}}>Material:</Text>
+        <Text style={styles.description}>{product.material}</Text>
+
+        <Text style={{fontWeight: "bold", fontSize: 18, marginTop: 15}}>Dimensions:</Text>
+        <Text style={styles.description}>{product.dimensions}</Text>
+
+        <Text style={{fontWeight: "bold", fontSize: 18, marginTop: 15}}>Colors:</Text>
+        <Text style={styles.description}>{product.colors.join(",  ")}</Text>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -46,8 +55,8 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    marginVertical: 20,
-    textAlign: "center",
+    marginVertical: 10,
+    textAlign: "left",
   },
   price: {
     fontSize: 20,

@@ -51,7 +51,7 @@ const HomeScreen = () => {
               />
               Mode</Text>
 
-            <Text style={styles.menuItem}>
+            <Text style={styles.menuItem} onPress={() => navigation.navigate("Tutorial")}>
                <MaterialCommunityIcons
                 name="book"
                 size={20}
